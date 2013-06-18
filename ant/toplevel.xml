@@ -16,7 +16,6 @@ Type "ant -p" for a list of targets.
   <target name="compile"
     depends="compile-autogen,
       compile-formats,
-      compile-jai,
       compile-loci-legacy,
       compile-loci-plugins,
       compile-lwf-stubs,
@@ -26,8 +25,6 @@ Type "ant -p" for a list of targets.
       compile-ome-plugins,
       compile-ome-xml,
       compile-poi-loci,
-      compile-scifio,
-      compile-scifio-devel,
       compile-scifio-tools,
       compile-tests"
     description="compile LOCI software packages"/>
@@ -37,7 +34,6 @@ Type "ant -p" for a list of targets.
       jar-autogen,
       jar-common,
       jar-formats,
-      jar-jai,
       jar-loci-legacy,
       jar-loci-plugins,
       jar-lwf-stubs,
@@ -47,8 +43,6 @@ Type "ant -p" for a list of targets.
       jar-ome-plugins,
       jar-ome-xml,
       jar-poi-loci,
-      jar-scifio,
-      jar-scifio-devel,
       jar-scifio-tools,
       jar-tests"
     description="generate JAR files for LOCI software packages"/>
@@ -57,7 +51,6 @@ Type "ant -p" for a list of targets.
     depends="copy-jars,
       osgi-autogen,
       osgi-formats,
-      osgi-jai,
       osgi-loci-legacy,
       osgi-loci-plugins,
       osgi-lwf-stubs,
@@ -67,8 +60,6 @@ Type "ant -p" for a list of targets.
       osgi-ome-plugins,
       osgi-ome-xml,
       osgi-poi-loci,
-      osgi-scifio,
-      osgi-scifio-devel,
       osgi-scifio-tools,
       osgi-tests"
     description="generate OSGi bundles for LOCI software packages"/>
@@ -89,8 +80,6 @@ Type "ant -p" for a list of targets.
       findbugs-metakit,
       findbugs-ome-io,
       findbugs-ome-plugins,
-      findbugs-scifio,
-      findbugs-scifio-devel,
       findbugs-scifio-tools,
       findbugs-tests"
     description="run findbugs on most components"/>
@@ -100,7 +89,6 @@ Type "ant -p" for a list of targets.
       clean-autogen,
       clean-formats,
       clean-common,
-      clean-jai,
       clean-loci-legacy,
       clean-loci-plugins,
       clean-lwf-stubs,
@@ -110,8 +98,6 @@ Type "ant -p" for a list of targets.
       clean-ome-plugins,
       clean-ome-xml,
       clean-poi-loci,
-      clean-scifio,
-      clean-scifio-devel,
       clean-scifio-tools,
       clean-specification,
       clean-tests,
@@ -124,7 +110,6 @@ Type "ant -p" for a list of targets.
   <target name="test"
     depends="test-autogen,
       test-formats,
-      test-jai,
       test-loci-legacy,
       test-loci-plugins,
       test-lwf-stubs,
@@ -134,8 +119,6 @@ Type "ant -p" for a list of targets.
       test-ome-plugins,
       test-ome-xml,
       test-poi-loci,
-      test-scifio,
-      test-scifio-devel,
       test-scifio-tools,
       test-tests"
     description="test all components">
@@ -151,9 +134,8 @@ Type "ant -p" for a list of targets.
   <target name="utils"
     depends="jars,
       utils-formats,
-      utils-loci-plugins,
-      utils-scifio,
-      utils-scifio-devel"
+      utils-loci-legacy,
+      utils-loci-plugins"
     description="compile all extra utilities"/>
 
   <target name="docs" depends="jars"
@@ -195,40 +177,6 @@ Type "ant -p" for a list of targets.
   <target name="testing-deps"
           description="performs any work necessary for testing"
           depends="copy-jars"/>
-
-  <!-- JAI Image I/O Tools library -->
-
-  <target name="deps-jai"/>
-
-  <target name="compile-jai" depends="deps-jai"
-    description="compile classes for JAI Image I/O Tools library">
-    <ant dir="components/forks/jai" target="jai.compile"/>
-  </target>
-
-  <target name="jar-jai" depends="deps-jai"
-    description="generate JAR file for JAI Image I/O Tools library">
-    <ant dir="components/forks/jai" target="jai.jar"/>
-  </target>
-
-  <target name="osgi-jai" depends="jar-jai"
-    description="generate OSGi bundle for JAI Image I/O Tools library">
-    <ant dir="components/forks/jai" target="jai.osgi"/>
-  </target>
-
-  <target name="findbugs-jai" depends="jar-jai"
-    description="run findbugs on JAI Image I/O Tools library">
-    <ant dir="components/forks/jai" target="jai.findbugs"/>
-  </target>
-
-  <target name="clean-jai"
-    description="remove build files for JAI Image I/O Tools library">
-    <ant dir="components/forks/jai" target="jai.clean"/>
-  </target>
-
-  <target name="test-jai" depends="jar-jai, testing-deps"
-    description="compile and run tests for JAI Image I/O Tools library">
-    <ant dir="components/forks/jai" target="test"/>
-  </target>
 
   <!-- Apache POI Java library -->
 
@@ -403,106 +351,13 @@ Type "ant -p" for a list of targets.
     description="compile and run tests for LWF stubs">
     <ant dir="components/stubs/lwf-stubs" target="test"/>
   </target>
-
-  <!-- SCIFIO -->
-
-  <target name="deps-scifio"
-    depends="jar-jai,
-      jar-loci-legacy,
-      jar-lwf-stubs,
-      jar-ome-xml"/>
-
-  <target name="compile-scifio" depends="deps-scifio"
-    description="compile classes for SCIFIO">
-    <ant dir="components/scifio" target="scifio.compile"/>
-  </target>
-
-  <target name="jar-scifio" depends="deps-scifio"
-    description="generate JAR file for SCIFIO">
-    <ant dir="components/scifio" target="scifio.jar"/>
-  </target>
-
-  <target name="osgi-scifio" depends="jar-scifio"
-    description="generate OSGi bundle for SCIFIO">
-    <ant dir="components/scifio" target="scifio.osgi"/>
-  </target>
-
-  <target name="findbugs-scifio" depends="jar-scifio"
-    description="run findbugs on SCIFIO">
-    <ant dir="components/scifio" target="scifio.findbugs"/>
-  </target>
-
-  <target name="clean-scifio"
-    depends="clean-jai,
-      clean-loci-legacy,
-      clean-lwf-stubs,
-      clean-ome-xml"
-    description="remove build files for SCIFIO">
-    <ant dir="components/scifio" target="scifio.clean"/>
-  </target>
-
-  <target name="utils-scifio" depends="jar-scifio"
-    description="compile extra utilities for SCIFIO">
-    <ant dir="components/scifio" target="scifio.utils"/>
-  </target>
-
-  <target name="test-scifio" depends="jar-scifio, testing-deps"
-    description="compile and run tests for SCIFIO">
-    <ant dir="components/scifio" target="test"/>
-  </target>
-
-  <!-- SCIFIO-DEV -->
-
-  <target name="deps-scifio-devel"
-    depends="jar-jai,
-      jar-lwf-stubs,
-      jar-ome-xml"/>
-
-  <target name="compile-scifio-devel" depends="deps-scifio-devel"
-    description="compile classes for SCIFIO-devel">
-    <ant dir="components/scifio-devel" target="scifio-devel.compile"/>
-  </target>
-
-  <target name="jar-scifio-devel" depends="deps-scifio-devel"
-    description="generate JAR file for SCIFIO-devel">
-    <ant dir="components/scifio-devel" target="scifio-devel.jar"/>
-  </target>
-
-  <target name="osgi-scifio-devel" depends="jar-scifio-devel"
-    description="generate OSGi bundle for SCIFIO-devel">
-    <ant dir="components/scifio-devel" target="scifio-devel.osgi"/>
-  </target>
-
-  <target name="findbugs-scifio-devel" depends="jar-scifio-devel"
-    description="run findbugs on SCIFIO-devel">
-    <ant dir="components/scifio-devel" target="scifio-devel.findbugs"/>
-  </target>
-
-  <target name="clean-scifio-devel"
-    depends="clean-ome-xml"
-    description="remove build files for SCIFIO-devel">
-    <ant dir="components/scifio-devel" target="scifio-devel.clean"/>
-  </target>
-
-  <target name="utils-scifio-devel" depends="jar-scifio-devel"
-    description="compile extra utilities for SCIFIO-devel">
-    <ant dir="components/scifio-devel" target="scifio-devel.utils"/>
-  </target>
-
-  <target name="test-scifio-devel" depends="jar-scifio-devel"
-    description="compile and run tests for SCIFIO-devel">
-    <ant dir="components/scifio-devel" target="test"/>
-  </target>
-
   <!-- SCIFIO tools -->
 
   <target name="deps-scifio-tools"
     depends="jar-common,
-      jar-jai,
       jar-lwf-stubs,
       jar-ome-xml,
-      jar-formats,
-      jar-scifio"/>
+      jar-formats"/>
 
   <target name="compile-scifio-tools" depends="deps-scifio-tools"
     description="compile classes for SCIFIO tools">
@@ -526,10 +381,8 @@ Type "ant -p" for a list of targets.
 
   <target name="clean-scifio-tools"
     depends="clean-common,
-      clean-jai,
       clean-lwf-stubs,
       clean-ome-xml,
-      clean-scifio,
       clean-formats"
     description="remove build files for SCIFIO tools">
     <ant dir="components/scifio-tools" target="scifio-tools.clean"/>
@@ -540,42 +393,6 @@ Type "ant -p" for a list of targets.
     <ant dir="components/scifio-tools" target="test"/>
   </target>
 
-  <!-- SCIFIO Tutorials -->
-
-  <target name="deps-scifio-tutorials"
-    depends="jar-scifio-devel" />
-
-  <target name="compile-scifio-tutorials" depends="deps-scifio-tutorials"
-    description="compile classes for SCIFIO tutorials">
-    <ant dir="components/scifio-tutorials" target="scifio-tutorials.compile"/>
-  </target>
-
-  <target name="jar-scifio-tutorials" depends="deps-scifio-tutorials"
-    description="generate JAR file for SCIFIO tutorials">
-    <ant dir="components/scifio-tutorials" target="scifio-tutorials.jar"/>
-  </target>
-
-  <target name="osgi-scifio-tutorials" depends="jar-scifio-tutorials"
-    description="generate OSGi bundle for SCIFIO tutorials">
-    <ant dir="components/scifio-tutorials" target="scifio-tutorials.osgi"/>
-  </target>
-
-  <target name="findbugs-scifio-tutorials" depends="jar-scifio-tutorials"
-    description="run findbugs on SCIFIO tutorials">
-    <ant dir="components/scifio-tutorials" target="scifio-tutorials.findbugs"/>
-  </target>
-
-  <target name="clean-scifio-tutorials"
-    depends="clean-ome-xml"
-    description="remove build files for SCIFIO tutorials">
-    <ant dir="components/scifio-tutorials" target="scifio-tutorials.clean"/>
-  </target>
-
-  <target name="test-scifio-tutorials" depends="jar-scifio-tutorials"
-    description="compile and run tests for SCIFIO tutorials">
-    <ant dir="components/scifio-tutorials" target="test"/>
-  </target>
-
   <!-- Bio-Formats -->
 
   <target name="deps-formats"
@@ -583,8 +400,7 @@ Type "ant -p" for a list of targets.
       jar-mdbtools,
       jar-metakit,
       jar-ome-xml,
-      jar-poi-loci,
-      jar-scifio"/>
+      jar-poi-loci"/>
 
   <target name="compile-formats" depends="deps-formats"
     description="compile classes for Bio-Formats">
@@ -611,8 +427,7 @@ Type "ant -p" for a list of targets.
       clean-mdbtools,
       clean-metakit,
       clean-ome-xml,
-      clean-poi-loci,
-      clean-scifio"
+      clean-poi-loci"
     description="remove build files for Bio-Formats">
     <ant dir="components/bio-formats" target="formats.clean"/>
   </target>
@@ -630,7 +445,8 @@ Type "ant -p" for a list of targets.
   <!-- Loci-Legacy  -->
 
   <target name="deps-loci-legacy"
-    depends="jar-scifio-devel"/>
+    depends="jar-ome-xml,
+             jar-lwf-stubs"/>
 
   <target name="compile-loci-legacy" depends="deps-loci-legacy"
     description="compile classes for Loci-Legacy ">
@@ -652,8 +468,13 @@ Type "ant -p" for a list of targets.
     <ant dir="components/loci-legacy" target="loci-legacy.findbugs"/>
   </target>
 
+ <target name="utils-loci-legacy" depends="jar-loci-legacy"
+   description="compile utility classes for SCIFIO">
+   <ant dir="components/loci-legacy" target="loci-legacy.utils"/>
+ </target>
+
   <target name="clean-loci-legacy"
-    depends="clean-scifio-devel"
+    depends="clean-ome-xml"
     description="remove build files for Loci-Legacy ">
     <ant dir="components/loci-legacy" target="loci-legacy.clean"/>
   </target>
@@ -666,8 +487,7 @@ Type "ant -p" for a list of targets.
   <!-- LOCI common (mirrors Loci Legacy) -->
 
   <target name="jar-common"
-    depends="jar-loci-legacy,
-             jar-scifio-devel"
+    depends="jar-loci-legacy"
     description="generate JAR file for LOCI Common">
     <for list="${loci-common.libraries}" param="jar" delimiter=" " trim="true">
       <sequential>
@@ -691,8 +511,7 @@ Type "ant -p" for a list of targets.
   <!-- LOCI autogen -->
 
   <target name="deps-autogen"
-    depends="jar-loci-legacy,
-             jar-scifio"/>
+    depends="jar-loci-legacy"/>
 
   <target name="compile-autogen" depends="deps-autogen"
     description="compile classes for LOCI autogen">
@@ -715,8 +534,7 @@ Type "ant -p" for a list of targets.
   </target>
 
   <target name="clean-autogen"
-    depends="clean-loci-legacy,
-             clean-scifio"
+    depends="clean-loci-legacy"
     description="remove build files for LOCI autogen">
     <ant dir="components/autogen" target="autogen.clean"/>
   </target>
@@ -731,8 +549,7 @@ Type "ant -p" for a list of targets.
   <target name="deps-loci-plugins"
     depends="jar-formats,
       jar-loci-legacy,
-      jar-ome-xml,
-      jar-scifio"/>
+      jar-ome-xml"/>
 
   <target name="compile-loci-plugins" depends="deps-loci-plugins"
     description="compile classes for LOCI Plugins for ImageJ">
@@ -757,8 +574,7 @@ Type "ant -p" for a list of targets.
   <target name="clean-loci-plugins"
     depends="clean-formats,
       clean-loci-legacy,
-      clean-ome-xml,
-      clean-scifio"
+      clean-ome-xml"
     description="remove build files for LOCI Plugins for ImageJ">
     <ant dir="components/loci-plugins" target="loci-plugins.clean"/>
   </target>
@@ -777,8 +593,7 @@ Type "ant -p" for a list of targets.
 
   <target name="deps-ome-io"
     depends="jar-loci-legacy,
-      jar-ome-xml,
-      jar-scifio"/>
+      jar-ome-xml"/>
 
   <target name="compile-ome-io" depends="deps-ome-io"
     description="compile classes for OME I/O">
@@ -802,8 +617,7 @@ Type "ant -p" for a list of targets.
 
   <target name="clean-ome-io"
     depends="clean-loci-legacy,
-      clean-ome-xml,
-      clean-scifio"
+      clean-ome-xml"
     description="remove build files for OME I/O">
     <ant dir="components/ome-io" target="ome-io.clean"/>
   </target>
@@ -818,8 +632,7 @@ Type "ant -p" for a list of targets.
   <target name="deps-ome-plugins"
     depends="jar-loci-legacy,
       jar-loci-plugins,
-      jar-ome-io,
-      jar-scifio"/>
+      jar-ome-io"/>
 
   <target name="compile-ome-plugins" depends="deps-ome-plugins"
     description="compile classes for OME Plugins for ImageJ">
@@ -844,8 +657,7 @@ Type "ant -p" for a list of targets.
   <target name="clean-ome-plugins"
     depends="clean-loci-legacy,
       clean-loci-plugins,
-      clean-ome-io,
-      clean-scifio"
+      clean-ome-io"
     description="remove build files for OME Plugins for ImageJ">
     <ant dir="components/ome-plugins" target="ome-plugins.clean"/>
   </target>
@@ -861,9 +673,7 @@ Type "ant -p" for a list of targets.
     depends="jar-formats,
       jar-loci-legacy,
       jar-ome-io,
-      jar-ome-xml,
-      jar-scifio,
-      jar-scifio-devel"/>
+      jar-ome-xml"/>
 
   <target name="compile-tests" depends="deps-tests"
     description="compile classes for LOCI testing framework">
@@ -889,9 +699,7 @@ Type "ant -p" for a list of targets.
     depends="clean-formats,
       clean-loci-legacy,
       clean-ome-io,
-      clean-ome-xml,
-      clean-scifio,
-      clean-scifio-devel"
+      clean-ome-xml"
     description="remove build files for LOCI testing framework">
     <ant dir="components/test-suite" target="tests.clean"/>
   </target>
@@ -906,14 +714,12 @@ Type "ant -p" for a list of targets.
   <target name="tools"
     depends="copy-jars,
       jar-common,
-      jar-jai,
       jar-loci-legacy,
       jar-loci-plugins,
       jar-mdbtools,
       jar-metakit,
       jar-ome-xml,
       jar-poi-loci,
-      jar-scifio,
       jar-scifio-tools"
     description="create JAR file encompassing several LOCI tools">
     <echo>----------=========== loci_tools ===========----------</echo>

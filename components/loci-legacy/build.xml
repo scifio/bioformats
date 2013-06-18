@@ -55,4 +55,21 @@ Type "ant -p" for a list of targets.
     </testng>
     <fail if="failedTest"/>
   </target>
+
+  <target name="test-no-lurawave" depends="compile-tests"
+    description="run missing LuraWave JAR tests" if="doTests">
+    <copy tofile="${build.dir}/testng.xml" overwrite="true"
+      file="${tests.dir}/loci/formats/utests/testng-no-lurawave.xml"/>
+    <testng failureProperty="failedTest">
+      <classpath>
+        <pathelement location="${root.dir}/tools/"/><!-- log4j.properties -->
+        <pathelement location="${test-classes.dir}"/>
+        <pathelement location="${classes.dir}"/>
+        <pathelement path="${component.cp.no-lurawave}"/>
+      </classpath>
+      <xmlfileset file="${build.dir}/testng.xml"/>
+      <jvmarg value="-mx${testng.memory}"/>
+    </testng>
+    <fail if="failedTest"/>
+  </target>
 </project>
