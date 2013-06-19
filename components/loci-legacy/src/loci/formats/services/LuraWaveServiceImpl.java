@@ -36,15 +36,16 @@
 
 package loci.formats.services;
 
+import io.scif.DependencyException;
+import io.scif.services.ServiceException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 
-import org.scijava.plugin.Plugin;
 
-import loci.common.services.AbstractService;
-import loci.common.services.DependencyException;
-import loci.common.services.ServiceException;
+import org.scijava.plugin.Plugin;
+import org.scijava.service.AbstractService;
 
 import com.luratech.lwf.lwfDecoder;
 
@@ -89,7 +90,6 @@ public class LuraWaveServiceImpl extends AbstractService
    * Default constructor.
    */
   public LuraWaveServiceImpl() throws DependencyException {
-    checkClassDependency(com.luratech.lwf.lwfDecoder.class);
     try {
       Field isStub = com.luratech.lwf.lwfDecoder.class.getField(STUB_FIELD);
       if (isStub != null) {

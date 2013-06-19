@@ -36,12 +36,13 @@
 
 package loci.formats.services;
 
+import io.scif.DependencyException;
+import io.scif.services.ServiceException;
+
 import java.io.IOException;
 import java.io.InputStream;
 
-import loci.common.services.DependencyException;
 import loci.common.services.Service;
-import loci.common.services.ServiceException;
 
 /**
  * <dl><dt><b>Source code:</b></dt>

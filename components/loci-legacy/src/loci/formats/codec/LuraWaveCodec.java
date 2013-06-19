@@ -112,6 +112,10 @@ public class LuraWaveCodec extends BaseCodec {
     }
     catch (IOException e) {
       throw new FormatException(e);
+    } catch (io.scif.DependencyException e) {
+      throw new FormatException(LuraWaveServiceImpl.NO_LICENSE_MSG, e);
+    } catch (io.scif.services.ServiceException e) {
+      throw new FormatException(LuraWaveServiceImpl.INVALID_LICENSE_MSG, e);
     }
 
     int w = service.getWidth();
@@ -126,6 +130,8 @@ public class LuraWaveCodec extends BaseCodec {
       }
       catch (ServiceException e) {
         throw new FormatException(LuraWaveServiceImpl.INVALID_LICENSE_MSG, e);
+      } catch (io.scif.services.ServiceException e) {
+        throw new FormatException(LuraWaveServiceImpl.INVALID_LICENSE_MSG, e);
       }
       return image8;
     }
@@ -135,6 +141,8 @@ public class LuraWaveCodec extends BaseCodec {
         service.decodeToMemoryGray16(image16, 0, -1, 1024, 0, 1, w, 0, 0, w, h);
       }
       catch (ServiceException e) {
+        throw new FormatException(LuraWaveServiceImpl.INVALID_LICENSE_MSG, e);
+      } catch (io.scif.services.ServiceException e) {
         throw new FormatException(LuraWaveServiceImpl.INVALID_LICENSE_MSG, e);
       }
 
