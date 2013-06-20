@@ -103,23 +103,6 @@ LOCI testing framework
 ===============================================================================
 The following components are forks of third party projects:
 
-JAI Image I/O Tools
-    Java API to handle JPEG and JPEG2000 files
-    -=-
-    JAR file:      jai_imageio.jar
-    Path:          components/forks/jai
-    Project deps:  (none)
-    Optional:      (none)
-    License:       BSD
-    Project URL:   http://jai-imageio.dev.java.net/
-    Notes:         Used by Bio-Formats to read images compressed with JPEG2000
-                   and lossless JPEG. Modified from the 2008-10-14 source to
-                   include support for the YCbCr color space. Several files in
-                   the com.sun.media.jai packages were removed, as they are not
-                   needed by Bio-Formats, and created an additional dependency.
-                   This component will be removed once our changes have been
-                   added to the official JAI CVS repository.
-
 MDB Tools (Java port)
     Java API to handle Microsoft MDB format (Access)
     -=-

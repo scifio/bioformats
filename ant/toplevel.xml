@@ -351,13 +351,14 @@ Type "ant -p" for a list of targets.
     description="compile and run tests for LWF stubs">
     <ant dir="components/stubs/lwf-stubs" target="test"/>
   </target>
+
   <!-- SCIFIO tools -->
 
   <target name="deps-scifio-tools"
     depends="jar-common,
       jar-lwf-stubs,
       jar-ome-xml,
-      jar-formats"/>
+      jar-loci-legacy"/>
 
   <target name="compile-scifio-tools" depends="deps-scifio-tools"
     description="compile classes for SCIFIO tools">
@@ -383,7 +384,7 @@ Type "ant -p" for a list of targets.
     depends="clean-common,
       clean-lwf-stubs,
       clean-ome-xml,
-      clean-formats"
+      clean-loci-legacy"
     description="remove build files for SCIFIO tools">
     <ant dir="components/scifio-tools" target="scifio-tools.clean"/>
   </target>
@@ -489,9 +490,18 @@ Type "ant -p" for a list of targets.
   <target name="jar-common"
     depends="jar-loci-legacy"
     description="generate JAR file for LOCI Common">
-    <for list="${loci-common.libraries}" param="jar" delimiter=" " trim="true">
+    <for list="${loci-common.artifacts}" param="jar" delimiter=" " trim="true">
       <sequential>
         <unjar src="${artifact.dir}/@{jar}" dest="${loci-common.dir}">
+          <patternset>
+            <exclude name="META-INF/**"/>
+          </patternset>
+        </unjar>
+      </sequential>
+    </for>
+    <for list="${loci-common.libraries}" param="jar" delimiter=" " trim="true">
+      <sequential>
+        <unjar src="${lib.dir}/@{jar}" dest="${loci-common.dir}">
           <patternset>
             <exclude name="META-INF/**"/>
           </patternset>
