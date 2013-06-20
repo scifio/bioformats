@@ -355,8 +355,7 @@ Type "ant -p" for a list of targets.
   <!-- SCIFIO tools -->
 
   <target name="deps-scifio-tools"
-    depends="jar-common,
-      jar-lwf-stubs,
+    depends="jar-lwf-stubs,
       jar-ome-xml,
       jar-loci-legacy"/>
 
@@ -381,8 +380,7 @@ Type "ant -p" for a list of targets.
   </target>
 
   <target name="clean-scifio-tools"
-    depends="clean-common,
-      clean-lwf-stubs,
+    depends="clean-lwf-stubs,
       clean-ome-xml,
       clean-loci-legacy"
     description="remove build files for SCIFIO tools">

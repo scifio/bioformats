@@ -14,7 +14,7 @@
 
   <artifactId>scifio-tools</artifactId>
 
-  <name>SCIFIO</name>
+  <name>SCIFIO Tools</name>
   <description>SCientific Image Format Input and Output: an open source
     framework for reading and writing scientific image file formats, and
     converting metadata between standards.</description>
