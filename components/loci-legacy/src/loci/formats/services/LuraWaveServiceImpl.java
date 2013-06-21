@@ -56,9 +56,9 @@ import com.luratech.lwf.lwfDecoder;
  *
  * @author callan
  */
-@Plugin(type=LuraWaveService.class)
+@Plugin(type=io.scif.services.LuraWaveService.class)
 public class LuraWaveServiceImpl extends AbstractService
-  implements LuraWaveService {
+  implements LuraWaveService, io.scif.services.LuraWaveService {
 
   /** System property to check for the LuraWave license code. */
   public static final String LICENSE_PROPERTY = "lurawave.license";
