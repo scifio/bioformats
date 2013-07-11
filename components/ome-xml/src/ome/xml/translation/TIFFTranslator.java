@@ -86,14 +86,20 @@ public class TIFFTranslator {
       
       OMEXMLMetadata meta = dest.getRoot();
       
-      meta.setPixelsPhysicalSizeX(new PositiveFloat(source.getPhysicalSizeX()), 0);
-      meta.setPixelsPhysicalSizeY(new PositiveFloat(source.getPhysicalSizeY()), 0);
-      meta.setPixelsPhysicalSizeY(new PositiveFloat(source.getPhysicalSizeZ()), 0);
+      double physX = source.getPhysicalSizeX();
+      double physY = source.getPhysicalSizeY();
+      double physZ = source.getPhysicalSizeZ();
+      
+      meta.setPixelsPhysicalSizeX(new PositiveFloat(physX > 0 ? physX : 1.0), 0);
+      meta.setPixelsPhysicalSizeY(new PositiveFloat(physY > 0 ? physX : 1.0), 0);
+      meta.setPixelsPhysicalSizeZ(new PositiveFloat(physZ > 0 ? physX : 1.0), 0);
       meta.setImageDescription(source.getDescription(), 0);
       meta.setExperimenterFirstName(source.getExperimenterFirstName(), 0);
       meta.setExperimenterLastName(source.getExperimenterLastName(), 0);
       meta.setExperimenterEmail(source.getExperimenterEmail(), 0);
-      meta.setImageAcquisitionDate(new Timestamp(source.getCreationDate()), 0);
+      
+      String creationDate = source.getCreationDate();
+      if (creationDate != null) meta.setImageAcquisitionDate(new Timestamp(creationDate), 0);
     }
   }
   
