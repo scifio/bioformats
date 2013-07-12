@@ -41,6 +41,7 @@ import io.scif.DefaultMetaTable;
 import io.scif.ImageMetadata;
 import io.scif.MetaTable;
 import io.scif.Metadata;
+import io.scif.util.FormatTools;
 
 import java.util.Hashtable;
 
@@ -315,18 +316,25 @@ public class CoreMetadata implements Cloneable {
       }
     }
 
-    imgMeta.setAxisLengths(axisLengths);
+
     imgMeta.setAxisTypes(axisTypes);
+    imgMeta.setAxisLengths(axisLengths);
+    imgMeta.setRGB(rgb);
+
+    if (rgb) planeCount /= 3;
+
     imgMeta.setPlaneCount(planeCount);
 
     imgMeta.setThumbSizeX(thumbSizeX);
     imgMeta.setThumbSizeY(thumbSizeY);
     imgMeta.setPixelType(pixelType);
-    imgMeta.setBitsPerPixel(bitsPerPixel);
+
+    int bpp = bitsPerPixel == 0 ?
+        FormatTools.getBitsPerPixel(pixelType) : bitsPerPixel;
+    imgMeta.setBitsPerPixel(bpp);
     imgMeta.setChannelLengths(cLengths);
     imgMeta.setChannelTypes(cTypes);
     imgMeta.setOrderCertain(orderCertain);
-    imgMeta.setRGB(rgb);
     imgMeta.setLittleEndian(littleEndian);
     imgMeta.setInterleaved(interleaved);
     imgMeta.setIndexed(indexed);
