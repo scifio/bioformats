@@ -91,8 +91,8 @@ public class TIFFTranslator {
       double physZ = source.getPhysicalSizeZ();
       
       meta.setPixelsPhysicalSizeX(new PositiveFloat(physX > 0 ? physX : 1.0), 0);
-      meta.setPixelsPhysicalSizeY(new PositiveFloat(physY > 0 ? physX : 1.0), 0);
-      meta.setPixelsPhysicalSizeZ(new PositiveFloat(physZ > 0 ? physX : 1.0), 0);
+      meta.setPixelsPhysicalSizeY(new PositiveFloat(physY > 0 ? physY : 1.0), 0);
+      meta.setPixelsPhysicalSizeZ(new PositiveFloat(physZ > 0 ? physZ : 1.0), 0);
       meta.setImageDescription(source.getDescription(), 0);
       meta.setExperimenterFirstName(source.getExperimenterFirstName(), 0);
       meta.setExperimenterLastName(source.getExperimenterLastName(), 0);
